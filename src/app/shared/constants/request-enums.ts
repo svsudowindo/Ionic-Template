@@ -1,8 +1,8 @@
 export const RequestEnums = {
     LOGIN: {
         type: 'GET',
-        path: '/token/todos/:id',
-        keys: ['id'],
+        path: '/todos',
+        keys: [],
         values: []
     }
 };

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonRequestService } from '../../../shared/services/http/common-request.service';
+import { RequestEnums } from '../../../shared/constants/request-enums';
 
 @Component({
   selector: 'app-login',
@@ -8,10 +10,16 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private commonRequestService: CommonRequestService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
   registration() {
     this.router.navigate(['registration']);
+  }
+
+  getInfo() {
+    this.commonRequestService.request(RequestEnums.LOGIN).subscribe(res => {
+      console.log(res);
+    })
   }
 }
