@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonRequestService } from '../../../shared/services/http/common-request.service';
 import { RequestEnums } from '../../../shared/constants/request-enums';
+import { StorageService } from '../../../shared/services/common/storage.service';
+import { LoaderService } from '../../../shared/services/common/loader/loader.service';
+import { SPINNER_TYPE } from '../../../shared/services/common/loader/spinner-enums';
 
 @Component({
   selector: 'app-login',
@@ -10,7 +13,8 @@ import { RequestEnums } from '../../../shared/constants/request-enums';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router: Router, private commonRequestService: CommonRequestService) { }
+  // tslint:disable-next-line:max-line-length
+  constructor(private router: Router, private commonRequestService: CommonRequestService, private storageService: StorageService, private loaderService: LoaderService) { }
 
   ngOnInit() { }
   registration() {
@@ -20,6 +24,21 @@ export class LoginComponent implements OnInit {
   getInfo() {
     this.commonRequestService.request(RequestEnums.LOGIN).subscribe(res => {
       console.log(res);
-    })
+    });
+  }
+  setStorage() {
+    this.storageService.setLocalStorageItem('username', 'sai');
+  }
+
+  getStorage() {
+    console.log(this.storageService.getLocalStorageItem('username'));
+  }
+
+  removeStorage() {
+    console.log(this.storageService.deleteLocalStorageItem('username'));
+  }
+
+  openLoader() {
+    this.loaderService.showLoader('loading sample 123....', SPINNER_TYPE.DOTS, true, 5000, true, '', true, true, true );
   }
 }
