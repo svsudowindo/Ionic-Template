@@ -6,13 +6,15 @@ import { CommonModule } from '@angular/common';
 import { PredefinedModule } from './modules/predefined/predefined.module';
 import { CustomModule } from './modules/custom/custom.module';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {  NgrxStoreModule } from './store/ngrxstore/ngrxstore.module';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
     CustomModule,
-    PredefinedModule
+    PredefinedModule,
+    NgrxStoreModule
   ],
   exports: [
     CustomModule,
