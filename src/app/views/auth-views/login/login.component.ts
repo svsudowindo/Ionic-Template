@@ -8,6 +8,7 @@ import { SPINNER_TYPE } from '../../../shared/services/common/loader/spinner-enu
 import { LoginActions } from './login.action';
 import { Store } from '@ngrx/store';
 import { IAppState } from './../../../shared/store/ngrxstore/ngrxstore.module';
+import { AlertService, ButtonModel } from '../../../shared/services/common/alert/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ import { IAppState } from './../../../shared/store/ngrxstore/ngrxstore.module';
 export class LoginComponent implements OnInit {
 
   // tslint:disable-next-line:max-line-length
-  constructor(private router: Router, private commonRequestService: CommonRequestService, private storageService: StorageService, private loaderService: LoaderService, private loginAction: LoginActions, private storeObj: Store<IAppState>) { }
+  constructor(private router: Router, private commonRequestService: CommonRequestService, private storageService: StorageService, private loaderService: LoaderService, private loginAction: LoginActions, private storeObj: Store<IAppState>, private alertService: AlertService) { }
 
   ngOnInit() { }
   registration() {
@@ -42,10 +43,30 @@ export class LoginComponent implements OnInit {
   }
 
   openLoader() {
-    this.loaderService.showLoader('loading sample 123....', SPINNER_TYPE.DOTS, true, 5000, true, '', true, true, true );
+    this.loaderService.showLoader('loading sample 123....', SPINNER_TYPE.DOTS, true, 5000, true, '', true, true, true);
   }
 
   dispactAction() {
-    this.storeObj.dispatch(this.loginAction.login({username: 'vipul', password: 'parmar'}));
+    this.storeObj.dispatch(this.loginAction.login({ username: 'vipul', password: 'parmar' }));
+  }
+
+  openAlert() {
+    const buttonsArray: ButtonModel[] = [
+      {
+        text: 'okay',
+        cssClass: 'danger',
+        haveHandler: true,
+        dismissMessage: 'Okay'
+      },
+      {
+        text: 'cancel',
+        cssClass: 'danger',
+        haveHandler: true,
+        dismissMessage: 'cancel'
+      }
+    ];
+    this.alertService.openAlert('Heading', 'subheading', 'My message', buttonsArray).then(res => {
+      console.log(res);
+    });
   }
 }
